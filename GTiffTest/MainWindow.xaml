@@ -1,0 +1,93 @@
+﻿<Window x:Class="GTiffTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GTiffTest"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="210,5,0,5" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="DockPanel.Dock" Value="Left" />
+            <Setter Property="TextAlignment" Value="Right" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DockPanel">
+            <Setter Property="Margin" Value="0,5,0,5" />
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:GdalOperationViewModel />
+    </Window.DataContext>
+    <Grid Margin="0,20,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <DockPanel>
+                <TextBlock Text="File Name" />
+                <ComboBox ItemsSource="{Binding FileList}"
+                          SelectedItem="{Binding FileName}" />
+            </DockPanel>
+
+            <DockPanel>
+                <TextBlock Text="Compress" />
+                <ComboBox ItemsSource="{Binding CompressList}"
+                          SelectedItem="{Binding Compress}" />
+            </DockPanel>
+
+            <DockPanel>
+                <TextBlock Text="Predictor" />
+                <ComboBox IsEnabled="{Binding EnablePredictor}"
+                          ItemsSource="{Binding PredictorList}"
+                          SelectedItem="{Binding Predictor}" />
+            </DockPanel>
+
+            <DockPanel>
+                <TextBlock Text="ZLevel" />
+                <ComboBox IsEnabled="{Binding EnableZLevel}"
+                          ItemsSource="{Binding ZLevelList}"
+                          SelectedItem="{Binding ZLevel}" />
+            </DockPanel>
+
+            <DockPanel>
+                <Button Content="New"
+                        Command="{Binding NewCommand}" />
+            </DockPanel>
+
+            <DockPanel>
+                <Button Content="Update"
+                        Command="{Binding UpdateCommand}" />
+            </DockPanel>
+
+            <DockPanel>
+                <Button Content="Get Driver"
+                        Command="{Binding GetDriverCommand}" />
+            </DockPanel>
+
+
+        </StackPanel>
+
+        <TextBox Grid.Row="1"
+                 Text="{Binding Message}"
+                 VerticalScrollBarVisibility="Visible" />
+
+    </Grid>
+</Window>
